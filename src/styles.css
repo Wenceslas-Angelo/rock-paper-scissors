@@ -1,0 +1,340 @@
+:root {
+  /* ### Primary */
+  --Scissors-Gradient: hsl(39, 89%, 49%) to hsl(40, 84%, 53%);
+  --Paper-Gradient: hsl(230, 89%, 62%) to hsl(230, 89%, 65%);
+  --Rock-Gradient: hsl(349, 71%, 52%) to hsl(349, 70%, 56%);
+  --Lizard-Gradient: hsl(261, 73%, 60%) to hsl(261, 72%, 63%);
+  --Cyan: hsl(189, 59%, 53%) to hsl(189, 58%, 57%);
+
+  /* ### Neutral */
+  --Dark-Text: hsl(229, 25%, 31%);
+  --Score-Text: hsl(229, 64%, 46%);
+  --Header-Outline: hsl(217, 16%, 45%);
+
+  /* ### Background */
+  --Radial-Gradient: linear-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: var(--Radial-Gradient);
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+}
+
+header {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border: 5px solid var(--Header-Outline);
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+header .logo {
+  width: 150px;
+}
+
+header .score-board {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+header .score-board p {
+  color: var(--Score-Text);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+header .score-board .score {
+  color: var(--Dark-Text);
+  font-weight: bolder;
+  font-size: 35px;
+}
+
+main {
+  height: 450px;
+  width: 500px;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.screen {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 600px;
+}
+
+main .hands {
+  /* border: 2px solid white; */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background: url('./../images/bg-triangle.svg') center no-repeat;
+  transform: translateX(160%);
+  transition: 0.5s linear;
+}
+
+main .hands.active {
+  transform: translateX(0);
+}
+
+main .hands .hand {
+  width: 150px;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+main .hands .hand:hover {
+  transform: scale(1.1);
+}
+
+main .hands .rock {
+  position: absolute;
+  bottom: 0;
+}
+main .hands .paper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+main .hands .scissors {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+main .choices {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 20px;
+  transform: translateX(-160%);
+  transition: 0.5s linear;
+}
+
+main .choices.active {
+  transform: translateX(0%);
+}
+
+main .choices .choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main .choices .result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main .choices .choice h2 {
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+main .choices .choice .image {
+  width: 150px;
+  margin-top: 20px;
+}
+
+main .choices .result h2 {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.btn-container {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.btn {
+  font-size: 20px;
+  border: 2px solid var(--Header-Outline);
+  color: var(--Header-Outline);
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px;
+  transition: 0.3s ease-in-out;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  color: #fff;
+  border-color: #fff;
+  transform: scale(1.1);
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0px;
+  left: -150%;
+  transition: all 0.3s linear;
+  z-index: 10;
+}
+
+.modal .modal-container {
+  background-color: #fff;
+  width: 500px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.modal .modal-container .times-image {
+  width: 40px;
+  cursor: pointer;
+}
+
+.modal .modal-container .modal__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+@media screen and (max-width: 700px) {
+  .btn-container {
+    margin-top: 20px;
+    bottom: 20px;
+    width: 100%;
+    left: auto;
+    right: auto;
+  }
+
+  .btn {
+    width: 200px;
+    margin: 0 auto;
+  }
+
+  main .choices .result {
+    position: absolute;
+    width: 200px;
+    bottom: -70px;
+    margin: auto;
+  }
+
+  main .choices {
+    width: 100%;
+    height: 270px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 20px;
+    transform: translateX(-160%);
+    transition: 0.5s linear;
+  }
+
+  header .logo img {
+    width: 100px;
+  }
+
+  header .score-board {
+    padding: 5px;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  main .hands {
+    width: 360px;
+  }
+
+  main .hands .hand {
+    width: 120px;
+    cursor: pointer;
+    transition: 0.3s linear;
+  }
+
+  main .hands .paper {
+    position: absolute;
+    top: 15px;
+    left: -15px;
+  }
+  main .hands .scissors {
+    position: absolute;
+    right: -15px;
+    top: 15px;
+  }
+
+  .modal {
+    top: -60px;
+  }
+
+  .modal .modal-container {
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+  }
+
+  .modal .modal-container .modal__title {
+    margin: 20px 0;
+  }
+
+  .modal .modal-container .modal__content {
+    width: 400px;
+    margin: auto;
+  }
+
+  .screen {
+    width: auto;
+  }
+
+  h2 {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  main .hands {
+    width: 310px;
+  }
+
+  main .hands .hand {
+    width: 100px;
+    cursor: pointer;
+    transition: 0.3s linear;
+  }
+}
